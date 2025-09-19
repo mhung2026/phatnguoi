@@ -1,4 +1,4 @@
-import { callAPI } from "../apiCaller.js";
+import { callAPI } from "./apiCaller.js";
 
 const TrafficTicket_VehicleTypeCode = {
   CAR: "CAR",

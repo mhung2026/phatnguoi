@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/**/*.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/v1/Traffic_Vehicle/CheckTrafficTicketNow", "dest": "/api/TrafficTicket.js" }
+  ]
+}

@@ -6,10 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "anyideaz",
+  "author": "mhung2026",
   "repository": {
     "type": "git",
-    "url": "https://github.com/anyideaz/phatnguoi-api.git"
+    "url": "https://github.com/mhung2026/phatnguoi.git"
   },
   "license": "ISC",
   "description": "",

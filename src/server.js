@@ -1,7 +1,5 @@
-import express from "express";
-import { callAPI } from "./apiCaller.js";
+import { callAPI } from "../apiCaller.js";
 
-// Giả định bạn có enum/const như sau
 const TrafficTicket_VehicleTypeCode = {
   CAR: "CAR",
   MOTORBIKE: "MOTORBIKE",
@@ -14,12 +12,11 @@ const TrafficTicket_VehicleTypeId = {
   ELECTRICBIKE: 3,
 };
 
-const app = express();
-const port = 3000;
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method Not Allowed" });
+  }
 
-app.use(express.json());
-
-app.post("/api/v1/Traffic_Vehicle/CheckTrafficTicketNow", async (req, res) => {
   let { PlateNumber, TypeCode, TypeId } = req.body;
 
   if (!PlateNumber) {
@@ -44,22 +41,19 @@ app.post("/api/v1/Traffic_Vehicle/CheckTrafficTicketNow", async (req, res) => {
   }
 
   if (!TypeId) {
-    return res.status(400).json({ error: "TypeId or valid TypeCode is required" });
+    return res
+      .status(400)
+      .json({ error: "TypeId or valid TypeCode is required" });
   }
 
   try {
-    // Gọi callAPI đúng thứ tự: (TypeId, plate)
     const Results = await callAPI(TypeId, PlateNumber);
     if (Results) {
-      res.json({ PlateNumber, TypeId, Results });
+      return res.json({ PlateNumber, TypeId, Results });
     } else {
-      res.status(404).json({ error: "No Results found" });
+      return res.status(404).json({ error: "No Results found" });
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
-});
-
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+}
